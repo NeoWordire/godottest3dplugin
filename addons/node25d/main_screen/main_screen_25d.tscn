@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnvkxh8dnh80p"]
+
+[ext_resource type="Script" uid="uid://cp2jhla3j0j0i" path="res://addons/node25d/main_screen/main_screen_25d.gd" id="1_2hg6d"]
+
+[sub_resource type="Theme" id="Theme_kyurx"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_kyurx"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_kyurx"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kyurx"]
+
+[node name="MainScreen25D" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_2hg6d")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="HSplitContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/PanelContainer"]
+layout_mode = 2
+theme = SubResource("Theme_kyurx")
+
+[node name="Button" type="Button" parent="HSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Start"
+
+[node name="Button2" type="Button" parent="HSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "End"
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HSplitContainer"]
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HSplitContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1542, 900)
+render_target_update_mode = 4
+
+[node name="pivot" type="Node3D" parent="HSplitContainer/SubViewportContainer/SubViewport"]
+
+[node name="Camera3D" type="Camera3D" parent="HSplitContainer/SubViewportContainer/SubViewport/pivot"]
+transform = Transform3D(1, 0, 0, 0, 0.941529, 0.336931, 0, -0.336931, 0.941529, 0, 0.586487, 2.04085)
+
+[node name="start" type="MeshInstance3D" parent="HSplitContainer/SubViewportContainer/SubViewport"]
+mesh = SubResource("SphereMesh_kyurx")
+
+[node name="worldplane" type="Area3D" parent="HSplitContainer/SubViewportContainer/SubViewport"]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.136878, 0)
+top_level = true
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HSplitContainer/SubViewportContainer/SubViewport/worldplane"]
+shape = SubResource("WorldBoundaryShape3D_kyurx")
+debug_fill = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HSplitContainer/SubViewportContainer/SubViewport/worldplane"]
+mesh = SubResource("PlaneMesh_kyurx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="HSplitContainer/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 11.5944, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+
+[connection signal="input_event" from="HSplitContainer/SubViewportContainer/SubViewport/worldplane" to="." method="_on_area_3d_input_event"]

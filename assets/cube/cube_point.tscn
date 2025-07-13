@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://orrfanu3vvdj"]
+
+[ext_resource type="Script" uid="uid://dyygddd4hi36i" path="res://addons/node25d/node_25d.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://t7isjmhdc8sk" path="res://addons/node25d/icons/node_25d_icon.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://c5d2c7nxf1wbo" path="res://assets/cube/godot.png" id="3"]
+
+[node name="CubePoint" type="Node2D"]
+script = ExtResource("1")
+__meta__ = {
+"_editor_icon": ExtResource("2")
+}
+
+[node name="CubePointMath" type="Node3D" parent="."]
+
+[node name="CubePointSprite" type="Sprite2D" parent="."]
+texture = ExtResource("3")
